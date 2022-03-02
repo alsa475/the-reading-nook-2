@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="styles.css" rel="stylesheet">
+  <title>Order Items</title>
+</head>
+
+<body>
+  <ul class="nav">
+    <li><a href="./">Home</a></li>
+    <li><a href="./customers">Customers</a></li>
+    <li><a href="./books">Books</a></li>
+    <li><a href="./orders">Orders</a></li>
+    <li><a href="./employees">Employees</a></li>
+  </ul>
+  
+  <h1>The Reading Nook Orders</h1>
+
+  <table>
+    <caption>Order Items</caption>
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Book Ordered</th>
+        <th>Quantity</th>
+        <th>Shipment Completed</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.order_number}}</td>
+            <td>{{this.book_id}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.order_item_complete}}</td>
+            
+            <td><a href="/edit_order_item">Edit</a></td>
+            <td><a href="/order_items">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+  </table>
+
+  <br>
+  <a href="/orders">Return to list of orders</a>
+
+  <br>
+  <a href="/">Return to the Home Page</a>
+</body>
+
+</html>

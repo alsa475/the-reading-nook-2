@@ -4,7 +4,7 @@
     SETUP
 */
 
-PORT        = 35857;                            // Set a port number at the top so it's easy to change in the future
+PORT        = 35856;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app     = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -145,6 +145,81 @@ app.get('/orders', function(req, res)
             res.render('orders', {data: rows});                 // Render the orders.hbs file, and also send the renderer
         })                                                      // an object where 'data' is equal to the 'rows' we
     });                                                         // received back from the query
+
+// Add new order page    
+app.get('/new_order', function(req, res)
+{
+    res.render('new_order');                   
+});   
+
+// Add a new order
+app.post('/new-order-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+    
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Orders (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES ('${data['customer_id_input']}', '${data['employee_id_input']}', '${data['order_date_input']}', '${data['order_complete_input']}', '${data['to_be_shipped_input']}')`;
+    query2 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES ('2', '${data['book_id_input']}', '${data['quantity_input']}', '${data['order_item_complete_input']}')`;
+    
+    db.pool.query(query1, function(error, rows, fields){
+    
+        // Check to see if there was an error
+        if (error) {
+    
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        else{
+
+            db.pool.query(query2, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+    
+            // If there was no error, we redirect back to our Orders page
+            else
+            {
+                let query1 = "SELECT * FROM Orders;";                   
+                    db.pool.query(query1, function(error, rows, fields){   
+                res.render('orders', {data: rows});               
+                })                                                                               
+            }
+        })}
+    })
+})
+
+// Edit order page    
+app.get('/edit_order', function(req, res)
+{
+    res.render('edit_order');                   
+});                                         
+
+
+/* Order Items */
+// Show all order items
+app.get('/order_items', function(req, res)
+    {
+        let query1 = "SELECT * FROM Order_items;";              // Define our query
+
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+
+            res.render('order_items', {data: rows});            // Render the employees.hbs file, and also send the renderer
+        })                                                      // an object where 'data' is equal to the 'rows' we
+    });  
+    
+// Edit order item page    
+app.get('/edit_order_item', function(req, res)
+{
+    res.render('edit_order_item');                   
+});                                         
+
 
 /* Employees */
 // Show all employees
