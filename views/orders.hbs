@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="styles.css" rel="stylesheet">
+  <title>The Reading Nook Orders</title>
+</head>
+
+<body>
+  <ul class="nav">
+    <li><a href="./">Home</a></li>
+    <li><a href="./customers">Customers</a></li>
+    <li><a href="./books">Books</a></li>
+    <li><a href="./orders">Orders</a></li>
+    <li><a href="./employees">Employees</a></li>
+  </ul>
+  
+  <h1>The Reading Nook Orders</h1>
+
+  <table>
+    <caption>Orders</caption>
+    <thead>
+      <tr>
+        <th>Order Number</th>
+        <th>Customer</th>
+        <th>Order Date</th>
+        <th>To be shipped</th>
+        <th>Order Complete</th>
+        <th>Employee ID</th>
+        <th>View Items</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.order_number}}</td>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.order_date}}</td>
+            <td>{{this.to_be_shipped}}</td>
+            <td>{{this.order_complete}}</td>
+            <td>{{this.employee_id}}</td>
+            <td><a href="/order_items">View Items</a></td>
+            <td><a href="/edit_order">Edit</a></td>
+            <td><a href="/orders">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+  </table>
+
+  <div>
+    <br>
+    <label>Search for an order:</label>
+    <br>
+    <label>by Order Number</label>
+    <input type="number" placeholder="Order Number">
+  </div>
+
+  <br>
+  <a href="/new_order">Add a new order</a>
+
+  <br>
+  <a href="/">Return to the Home Page</a>
+</body>
+
+</html>

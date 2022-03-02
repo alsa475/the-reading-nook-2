@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="styles.css" rel="stylesheet">
+  <title>The Reading Nook Customers</title>
+</head>
+
+<body>
+  <ul class="nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="./customers">Customers</a></li>
+    <li><a href="./books">Books</a></li>
+    <li><a href="./orders">Orders</a></li>
+    <li><a href="./employees">Employees</a></li>
+  </ul>
+  
+  <h1>The Reading Nook Customers</h1>
+
+  <table>
+    <caption>Customers</caption>
+    <thead>
+      <tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Street Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip Code</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{this.customer_id}}</td>
+            <td>{{this.first_name}}</td>
+            <td>{{this.last_name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.street_address}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{this.zip_code}}</td>
+            <td><a href="/edit_customer">Edit</a></td>
+            <td><a href="/customers">Delete</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+  </table>
+
+ 
+
+  <div>
+    <br>
+    <label>Search for a customer:</label>
+    <br>
+    <label>by First Name</label>
+    <input type="text" placeholder="First Name">
+    <label>by Last Name</label>
+    <input type="text" placeholder="Last Name">
+  </div>
+
+  <br>
+  <a href="/new_customer">Add a new customer</a>
+
+  <br>
+  <a href="/">Return to the Home Page</a>
+</body>
+
+</html>
