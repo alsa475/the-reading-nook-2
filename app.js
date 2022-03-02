@@ -4,7 +4,7 @@
     SETUP
 */
 
-PORT        = 35856;                            // Set a port number at the top so it's easy to change in the future
+PORT        = 35857;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app     = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -74,6 +74,13 @@ app.post('/new-customer-form', function(req, res){
     })
 })
 
+// Edit customer page    
+app.get('/edit_customer', function(req, res)
+{
+    res.render('edit_customer');                   
+});                                         
+
+
 /* Books */ 
 // Show all books   
 app.get('/books', function(req, res)
@@ -119,6 +126,13 @@ app.post('/new-book-form', function(req, res){
         }
     })
 })
+
+// Edit book page    
+app.get('/edit_book', function(req, res)
+{
+    res.render('edit_book');                   
+});                                         
+
 
 /* Orders */
 // Show all orders
@@ -177,6 +191,12 @@ app.post('/new-employee-form', function(req, res){
         }
     })
 })
+
+// Edit employee page    
+app.get('/edit_employee', function(req, res)
+{
+    res.render('edit_employee');                   
+});                                         
 
 
 /*
