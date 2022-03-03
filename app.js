@@ -1,10 +1,21 @@
+//****************************************************************************
+//
+// Dana Yarges
+// Amy Salley
+// CS 340
+//
+// Code modified from CS 340 Node.js starter code
+// https://github.com/osu-cs340-ecampus/nodejs-starter-app
+//
+//****************************************************************************
+
 // App.js
 
 /*
     SETUP
 */
 
-PORT        = 35856;                            // Set a port number at the top so it's easy to change in the future
+PORT        = 35857;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app     = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -27,6 +38,11 @@ app.get('/', function(req, res)
     {
         res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
     });                                         // will process this file, before sending the finished HTML to the client.
+
+app.get('/index', function(req, res)
+    {
+        res.render('index');                    
+    });                                        
 
 /* Customers */    
 // Show all customers
@@ -156,10 +172,16 @@ app.get('/new_order', function(req, res)
 app.post('/new-order-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
+
+    let employee_id = parseInt(data['employee_id_input']);
+    if (isNaN(employee_id)){
+        employee_id = 'NULL'
+    }
     
     // Create the query and run it on the database
-    query1 = `INSERT INTO Orders (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES ('${data['customer_id_input']}', '${data['employee_id_input']}', '${data['order_date_input']}', '${data['order_complete_input']}', '${data['to_be_shipped_input']}')`;
-    query2 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES ('2', '${data['book_id_input']}', '${data['quantity_input']}', '${data['order_item_complete_input']}')`;
+    query1 = `INSERT INTO Orders (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES ('${data['customer_id_input']}', ${employee_id}, '${data['order_date_input']}', ${data['order_complete_input']}, ${data['to_be_shipped_input']})`;
+    query2 = `SELECT max(order_number) FROM Orders`;
+    query3 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES ('2', '${data['book_id_input']}', '${data['quantity_input']}', ${data['order_item_complete_input']})`;
     
     db.pool.query(query1, function(error, rows, fields){
     
@@ -173,7 +195,7 @@ app.post('/new-order-form', function(req, res){
 
         else{
 
-            db.pool.query(query2, function(error, rows, fields){
+            db.pool.query(query3, function(error, rows, fields){
     
             // Check to see if there was an error
             if (error) {
