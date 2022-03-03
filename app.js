@@ -15,7 +15,7 @@
     SETUP
 */
 
-PORT        = 35857;                            // Set a port number at the top so it's easy to change in the future
+PORT        = 49533;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app     = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -34,6 +34,7 @@ var db = require('./database/db-connector')
     ROUTES
 */
 
+/* Homepage, Index */
 app.get('/', function(req, res)
     {
         res.render('index');                    // Note the call to render() and not send(). Using render() ensures the templating engine
@@ -180,8 +181,7 @@ app.post('/new-order-form', function(req, res){
     
     // Create the query and run it on the database
     query1 = `INSERT INTO Orders (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES ('${data['customer_id_input']}', ${employee_id}, '${data['order_date_input']}', ${data['order_complete_input']}, ${data['to_be_shipped_input']})`;
-    query2 = `SELECT max(order_number) FROM Orders`;
-    query3 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES ('2', '${data['book_id_input']}', '${data['quantity_input']}', ${data['order_item_complete_input']})`;
+    query2 = `SELECT max(order_number) as max_order_number FROM Orders`;
     
     db.pool.query(query1, function(error, rows, fields){
     
@@ -194,25 +194,31 @@ app.post('/new-order-form', function(req, res){
         }
 
         else{
-
-            db.pool.query(query3, function(error, rows, fields){
+            db.pool.query(query2, function(error, rows, fields){
+                let result = JSON.parse(JSON.stringify(rows))
+                new_order_number = result[0].max_order_number       
+            
+                query3 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${new_order_number}, '${data['book_id_input']}', '${data['quantity_input']}', ${data['order_item_complete_input']})`;
     
-            // Check to see if there was an error
-            if (error) {
+                db.pool.query(query3, function(error, rows, fields){
     
-                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
-                console.log(error)
-                res.sendStatus(400);
-            }
+                // Check to see if there was an error
+                if (error) {
     
-            // If there was no error, we redirect back to our Orders page
-            else
-            {
-                let query1 = "SELECT * FROM Orders;";                   
-                    db.pool.query(query1, function(error, rows, fields){   
-                res.render('orders', {data: rows});               
-                })                                                                               
-            }
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error)
+                    res.sendStatus(400);
+                }
+    
+                // If there was no error, we redirect back to our Orders page
+                else
+                {
+                    let query1 = "SELECT * FROM Orders;";                   
+                        db.pool.query(query1, function(error, rows, fields){   
+                    res.render('orders', {data: rows});               
+                    })                                                                               
+                }
+            })
         })}
     })
 })
