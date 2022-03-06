@@ -14,7 +14,7 @@
     <li><a href="./orders">Orders</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
-  
+
   <h1>The Reading Nook Orders</h1>
 
   <table>
@@ -22,11 +22,15 @@
     <thead>
       <tr>
         <th>Order Number</th>
-        <th>Customer</th>
+        <th>Customer ID</th>
+        <th>Customer First Name</th>
+        <th>Customer Last Name</th>
         <th>Order Date</th>
         <th>To be shipped</th>
         <th>Order Complete</th>
         <th>Employee ID</th>
+        <th>Employee First Name</th>
+        <th>Employee Last Name</th>
         <th>View Items</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -34,19 +38,23 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.order_number}}</td>
-            <td>{{this.customer_id}}</td>
-            <td>{{this.order_date}}</td>
-            <td>{{this.to_be_shipped}}</td>
-            <td>{{this.order_complete}}</td>
-            <td>{{this.employee_id}}</td>
-            <td><a href="/order_items">View Items</a></td>
-            <td><a href="/edit_order">Edit</a></td>
-            <td><a href="/orders">Delete</a></td>
-        </tr>
-        {{/each}}
+      {{#each data}}
+      <tr>
+        <td>{{this.order_number}}</td>
+        <td>{{this.customer_id}}</td>
+        <td>{{this.c_first_name}}</td>
+        <td>{{this.c_last_name}}</td>
+        <td>{{this.order_date}}</td>
+        <td>{{this.to_be_shipped}}</td>
+        <td>{{this.order_complete}}</td>
+        <td>{{this.employee_id}}</td>
+        <td>{{this.e_first_name}}</td>
+        <td>{{this.e_last_name}}</td>
+        <td><a href="/order_items">View Items</a></td>
+        <td><a href="/edit_order">Edit</a></td>
+        <td><a href="/orders">Delete</a></td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 
