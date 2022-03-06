@@ -19,14 +19,24 @@
     <h2>Order</h2>
     <form id='new-order-form' method='POST' action='/new-order-form'>
         <fieldset>
-            <label for="customer_id">Customer ID:</label>
-            <input type="number" placeholder="Customer ID" name="customer_id_input" id="customer_id_input"/>
+            <label for="customer_id_inpt">Customer:</label>
+            <select name="customer_id_input" id="customer_id_input">
+                <option value="">Select a Customer</option>
+                {{#each select_customers}}
+                <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+            </select>
 
             <label for="order_date">Order Date:</label>
             <input type="date" placeholder="Order date" name="order_date_input" id="order_date_input"/>
 
-            <label for="employee_id">Employee ID:</label>
-            <input type="number" placeholder="Employee ID" name="employee_id_input" id="employee_id_input"/>
+            <label for="employee_id_inpt">Employee:</label>
+            <select name="employee_id_input" id="employee_id_input">
+                <option value="">Select an Employee</option>
+                {{#each select_employees}}
+                <option value="{{this.employee_id}}">{{this.first_name}} {{this.last_name}}</option>
+                {{/each}}
+            </select>
 
             <p>Will this order be shipped to the customer?</p>
             <input type="radio" id="to_be_shipped_input" name="to_be_shipped_input" value="1">
@@ -47,8 +57,14 @@
 
             <br>
             <h3>Order Items</h3>
-            <label for="book_id">Book ID:</label>
-            <input type="number" placeholder="Book ID" name="book_id_input" id="book_id_input"/>
+
+            <label for="book_id_inpt">Book:</label>
+            <select name="book_id_input" id="book_id_input">
+                <option value="">Select a Book</option>
+                {{#each select_books}}
+                <option value="{{this.book_id}}">{{this.title}}</option>
+                {{/each}}
+            </select>
 
             <label for="quantity">Quantity:</label>
             <input type="number" placeholder="Quantity" name="quantity_input" id="quantity_input"/>
@@ -57,29 +73,8 @@
                 <option value="FALSE" selected>Not Complete</option>
                 <option value="TRUE">Complete</option>
             </select>
-            <br>
-            <label for="book_id">Book ID:</label>
-            <input type="number" placeholder="Book ID" />
-
-            <label for="quantity">Quantity:</label>
-            <input type="number" placeholder="Quantity" />
-
-            <select name="dropdown">
-                <option value="Not Complete" selected>Not Complete</option>
-                <option value="Complete">Complete</option>
-            </select>
-            <br>
-            <label for="book_id">Book ID:</label>
-            <input type="number" placeholder="Book ID" />
-
-            <label for="quantity">Quantity:</label>
-            <input type="number" placeholder="Quantity" />
             
-            <select name="dropdown">
-                <option value="Not Complete" selected>Not Complete</option>
-                <option value="Complete">Complete</option>
-            </select>
-
+            
             <br>
             <br>
             <button>Add order</button>

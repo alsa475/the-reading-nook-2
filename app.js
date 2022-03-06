@@ -155,7 +155,24 @@ app.get('/orders', function (req, res) {
 
 // Add new order page    
 app.get('/new_order', function (req, res) {
-    res.render('new_order');
+    // Get the values for drop-down menus
+    query1 = `SELECT * FROM Customers;`;
+    query2 = `SELECT * FROM Employees;`;
+    query3 = `SELECT * FROM Books;`;
+
+    db.pool.query(query1, function (error, rows, fields) {
+        let select_customers = rows;
+
+        db.pool.query(query2, function (error, rows, fields) {
+            let select_employees = rows;
+
+            db.pool.query(query3, function (error, rows, fields) {
+                let select_books = rows;
+
+                res.render('new_order', {select_customers: select_customers, select_employees: select_employees, select_books: select_books});
+            })
+        })
+    })  
 });
 
 // Add a new order
@@ -163,7 +180,7 @@ app.post('/new-order-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    let employee_id = parseInt(data['employee_id_input']);
+    let employee_id = parseInt(data['employee_input']);
     if (isNaN(employee_id)) {
         employee_id = 'NULL'
     }
@@ -201,8 +218,8 @@ app.post('/new-order-form', function (req, res) {
 
                     // If there was no error, we redirect back to our Orders page
                     else {
-                        let query1 = "SELECT * FROM Orders;";
-                        db.pool.query(query1, function (error, rows, fields) {
+                        let query4 = `SELECT o.order_number AS order_number, o.customer_id AS customer_id, c.first_name AS c_first_name, c.last_name AS c_last_name, o.employee_id AS employee_id, e.first_name AS e_first_name, e.last_name AS e_last_name, o.order_date AS order_date, o.order_complete AS order_complete, o.to_be_shipped AS to_be_shipped FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) LEFT JOIN Employees e ON o.employee_id = e.employee_id);`;
+                        db.pool.query(query4, function (error, rows, fields) {
                             res.render('orders', { data: rows });
                         })
                     }
