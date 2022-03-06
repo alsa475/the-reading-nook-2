@@ -180,7 +180,7 @@ app.post('/new-order-form', function (req, res) {
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
-    let employee_id = parseInt(data['employee_input']);
+    let employee_id = parseInt(data['employee_id_input']);
     if (isNaN(employee_id)) {
         employee_id = 'NULL'
     }
