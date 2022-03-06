@@ -24,6 +24,14 @@ SELECT o.order_number AS order_number,
     FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) 
     LEFT JOIN Employees e ON o.employee_id = e.employee_id);
 
+-- Display a user-friedly table of Orders_itmes to include book title
+SELECT oi.order_number AS order_number, 
+    oi.book_id AS book_id, 
+    b.title AS title, 
+    oi.quantity AS quantity, 
+    oi.order_item_complete AS order_item_complete, 
+    FROM (Order_items oi INNER JOIN Books b ON oi.book_id = b.book_id); 
+
 -- Queries for searching a table
 -- : character used to denote the variables that will be entered by the user 
 SELECT * FROM Customers WHERE first_name = :first_name_entered OR last_name = :last_name_entered;

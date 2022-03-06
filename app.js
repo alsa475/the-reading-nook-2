@@ -238,7 +238,7 @@ app.get('/edit_order', function (req, res) {
 /* Order Items */
 // Show all order items
 app.get('/order_items', function (req, res) {
-    let query1 = "SELECT * FROM Order_items;";              // Define our query
+    let query1 = "SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id); ";
 
     db.pool.query(query1, function (error, rows, fields) {    // Execute the query
 
