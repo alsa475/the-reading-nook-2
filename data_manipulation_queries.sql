@@ -1,5 +1,5 @@
 -- Dana Yarges
--- Amy Lucas
+-- Amy Salley
 -- CS340
 -- Project Step 4: This file contains the Data Manipulation Queries for the database.
 
@@ -9,6 +9,20 @@ SELECT * FROM Books;
 SELECT * FROM Employees;
 SELECT * FROM Orders;
 SELECT * FROM Order_items;
+
+-- Display a user-friedly table of Orders to include customer and employee names
+SELECT o.order_number AS order_number, 
+    o.customer_id AS customer_id, 
+    c.first_name AS c_first_name, 
+    c.last_name AS c_last_name, 
+    o.employee_id AS employee_id, 
+    e.first_name AS e_first_name, 
+    e.last_name AS e_last_name, 
+    o.order_date AS order_date, 
+    o.order_complete AS order_complete, 
+    o.to_be_shipped AS to_be_shipped 
+    FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) 
+    LEFT JOIN Employees e ON o.employee_id = e.employee_id);
 
 -- Queries for searching a table
 -- : character used to denote the variables that will be entered by the user 
