@@ -15,7 +15,7 @@
     SETUP
 */
 
-PORT = 49533;                            // Set a port number at the top so it's easy to change in the future
+PORT = 49534;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -75,7 +75,7 @@ app.post('/new-customer-form', function (req, res) {
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Customers (first_name, last_name, email, street_address, city, state, zip_code) VALUES ('${data['first_name_input']}', '${data['last_name_input']}', '${data['email_input']}', '${data['street_address_input']}', '${data['city_input']}', '${data['state_input']}', '${data['zip_code_input']}')`;
+    query1 = `INSERT INTO Customers (first_name, last_name, email, street_address, city, state, zip_code) VALUES ('${data['first_name_input']}', '${data['last_name_input']}', '${data['email_input']}', '${data['street_address_input']}', '${data['city_input']}', '${data['state_input']}', '${data['zip_code_input']}');`;
     db.pool.query(query1, function (error, rows, fields) {
 
         // Check to see if there was an error
@@ -101,6 +101,19 @@ app.get('/edit_customer', function (req, res) {
     res.render('edit_customer');
 });
 
+// Delete customer
+app.post('/delete-customer-form', function (req, res) {
+    let data = req.body;
+    let delete_customer = parseInt(data.customer_id_selected)
+
+    let query1 = `DELETE FROM Customers WHERE customer_id = ${delete_customer};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Customers;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('customers', { data: rows });
+        })
+    })
+});
 
 /* Books */
 // Show all books   
@@ -160,6 +173,19 @@ app.get('/edit_book', function (req, res) {
     res.render('edit_book');
 });
 
+// Delete book
+app.post('/delete-book-form', function (req, res) {
+    let data = req.body;
+    let delete_book = parseInt(data.book_id_selected)
+
+    let query1 = `DELETE FROM Books WHERE book_id = ${delete_book};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Books;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('books', { data: rows });
+        })
+    })
+});
 
 /* Orders */
 // Show all orders
@@ -264,6 +290,19 @@ app.get('/edit_order', function (req, res) {
     res.render('edit_order');
 });
 
+// Delete Order
+app.post('/delete-order-form', function (req, res) {
+    let data = req.body;
+    let delete_order = parseInt(data.order_number_selected)
+
+    let query1 = `DELETE FROM Orders WHERE order_number = ${delete_order};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Orders;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('orders', { data: rows });
+        })
+    })
+});
 
 /* Order Items */
 // Show all order items
@@ -281,6 +320,24 @@ app.get('/edit_order_item', function (req, res) {
     res.render('edit_order_item');
 });
 
+// Delete Order_item
+app.post('/delete-order-item-form', function (req, res) {
+    let data = req.body;
+    let delete_order_item = data.order_item_selected.split(',')
+    
+    let order_number_selected = parseInt(delete_order_item[0])
+    let book_id_selected = parseInt(delete_order_item[1])
+
+    let query1 = `DELETE FROM Order_items WHERE order_number = ${order_number_selected} AND book_id = ${book_id_selected};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id); ";
+
+        db.pool.query(query2, function (error, rows, fields) {   
+
+            res.render('order_items', { data: rows }); 
+        })
+    })
+});
 
 /* Employees */
 // Show all employees
@@ -330,6 +387,19 @@ app.get('/edit_employee', function (req, res) {
     res.render('edit_employee');
 });
 
+// Delete employee
+app.post('/delete-employee-form', function (req, res) {
+    let data = req.body;
+    let delete_employee = parseInt(data.employee_id_selected)
+
+    let query1 = `DELETE FROM Employees WHERE employee_id = ${delete_employee};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Employees;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('employees', { data: rows });
+        })
+    })
+});
 
 /*
     LISTENER

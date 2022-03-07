@@ -42,7 +42,11 @@
             <td>{{this.price}}</td>
             <td>{{this.quantity_in_stock}}</td>
             <td><a href="/edit_book">Edit</a></td>
-            <td><a href="/books">Delete</a></td>
+            <td>
+              <form id='delete-book-form' method='POST' action='/delete-book-form'>
+                <button name="book_id_selected" id="book_id_selected" value="{{this.book_id}}">Delete</button>
+              </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>

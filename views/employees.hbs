@@ -36,7 +36,11 @@
             <td>{{this.first_name}}</td>
             <td>{{this.last_name}}</td>
             <td><a href="/edit_employee">Edit</a></td>
-            <td><a href="/employees">Delete</a></td>
+            <td>
+              <form id='delete-employee-form' method='POST' action='/delete-employee-form'>
+                <button name="employee_id_selected" id="employee_id_selected" value="{{this.employee_id}}">Delete</button>
+              </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>

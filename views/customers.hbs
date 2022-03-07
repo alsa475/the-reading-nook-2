@@ -46,7 +46,11 @@
             <td>{{this.state}}</td>
             <td>{{this.zip_code}}</td>
             <td><a href="/edit_customer">Edit</a></td>
-            <td><a href="/customers">Delete</a></td>
+            <td>
+              <form id='delete-customer-form' method='POST' action='/delete-customer-form'>
+                <button name="customer_id_selected" id="customer_id_selected" value="{{this.customer_id}}">Delete</button>
+              </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>
