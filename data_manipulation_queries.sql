@@ -36,7 +36,21 @@ SELECT oi.order_number AS order_number,
 -- : character used to denote the variables that will be entered by the user 
 SELECT * FROM Customers WHERE first_name = :first_name_entered OR last_name = :last_name_entered;
 SELECT * FROM Books WHERE title = :title_entered OR author = :author_entered;
-SELECT * FROM Orders WHERE order_number = :order_number_entered;
+
+-- Orders table search
+SELECT o.order_number AS order_number, 
+    o.customer_id AS customer_id,
+    c.first_name AS c_first_name, 
+    c.last_name AS c_last_name, 
+    o.employee_id AS employee_id, 
+    e.first_name AS e_first_name, 
+    e.last_name AS e_last_name, 
+    o.order_date AS order_date, 
+    o.order_complete AS order_complete, 
+    o.to_be_shipped AS to_be_shipped 
+    FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) 
+    LEFT JOIN Employees e ON o.employee_id = e.employee_id) 
+    WHERE o.order_number = ${:order_number_entered};
 
 -- Queries for inserting a new row in a table
 -- : character used to denote the variables that will be entered by the user 
