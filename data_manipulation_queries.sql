@@ -29,8 +29,8 @@ SELECT oi.order_number AS order_number,
     oi.book_id AS book_id, 
     b.title AS title, 
     oi.quantity AS quantity, 
-    oi.order_item_complete AS order_item_complete, 
-    FROM (Order_items oi INNER JOIN Books b ON oi.book_id = b.book_id); 
+    oi.order_item_complete AS order_item_complete 
+    FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id); 
 
 -- Queries for searching a table
 -- : character used to denote the variables that will be entered by the user 

@@ -20,7 +20,7 @@
     <form id='new-order-form' method='POST' action='/new-order-form'>
         <fieldset>
             <label for="customer_id_inpt">Customer:</label>
-            <select name="customer_id_input" id="customer_id_input">
+            <select name="customer_id_input" id="customer_id_input" required="required">
                 <option value="">Select a Customer</option>
                 {{#each select_customers}}
                 <option value="{{this.customer_id}}">{{this.first_name}} {{this.last_name}}</option>
@@ -39,7 +39,7 @@
             </select>
 
             <p>Will this order be shipped to the customer?</p>
-            <input type="radio" id="to_be_shipped_input" name="to_be_shipped_input" value="1">
+            <input type="radio" id="to_be_shipped_input" name="to_be_shipped_input" value="1" required="required">
             <label class="radio" for="to_be_shipped_input">Yes</label>
             
 
@@ -48,7 +48,7 @@
             
 
             <p>Is this order complete?</p>
-            <input type="radio" id="order_complete_input" name="order_complete_input" value="1">
+            <input type="radio" id="order_complete_input" name="order_complete_input" value="1" required="required">
             <label class="radio" for="order_complete_input">Yes</label>
 
             <input type="radio" id="order_complete_input" name="order_complete_input" value="0">
@@ -59,7 +59,7 @@
             <h3>Order Items</h3>
 
             <label for="book_id_inpt">Book:</label>
-            <select name="book_id_input" id="book_id_input">
+            <select name="book_id_input" id="book_id_input" required="required">
                 <option value="">Select a Book</option>
                 {{#each select_books}}
                 <option value="{{this.book_id}}">{{this.title}}</option>
@@ -67,7 +67,7 @@
             </select>
 
             <label for="quantity">Quantity:</label>
-            <input type="number" placeholder="Quantity" name="quantity_input" id="quantity_input"/>
+            <input type="number" placeholder="Quantity" name="quantity_input" id="quantity_input" required="required"/>
 
             <select name="order_item_complete_input" id="order_item_complete_input">
                 <option value="FALSE" selected>Not Complete</option>

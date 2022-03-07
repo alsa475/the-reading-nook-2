@@ -1,5 +1,5 @@
 -- Dana Yarges
--- Amy Lucas
+-- Amy Salley
 -- CS340
 -- Project Step 4: This file contains the Data Definition Queries for the database.
 
