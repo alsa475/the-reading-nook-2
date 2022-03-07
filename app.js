@@ -54,6 +54,16 @@ app.get('/customers', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+// Show customers search results
+app.post('/search-customers-form', function (req, res) {
+    let data = req.body;
+    let query1 = `SELECT * FROM Customers WHERE first_name = '${data['first_name_entered']}' OR last_name = '${data['last_name_entered']}';`; 
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+
+        res.render('customers', { data: rows });              // Render the customers.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
+
 // Add new customer page    
 app.get('/new_customer', function (req, res) {
     res.render('new_customer');
@@ -103,6 +113,16 @@ app.get('/books', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
 
+// Show books search results
+app.post('/search-books-form', function (req, res) {
+    let data = req.body;
+    let query1 = `SELECT * FROM Books WHERE title = '${data['title_entered']}' OR author = '${data['author_entered']}';`; 
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+
+        res.render('books', { data: rows });              // Render the customers.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});     
+
 // Add new book page    
 app.get('/new_book', function (req, res) {
     res.render('new_book');
@@ -144,7 +164,6 @@ app.get('/edit_book', function (req, res) {
 /* Orders */
 // Show all orders
 app.get('/orders', function (req, res) {
-    //let query1 = "SELECT * FROM Orders;";                   // Define our query
     let query1 = "SELECT o.order_number AS order_number, o.customer_id AS customer_id, c.first_name AS c_first_name, c.last_name AS c_last_name, o.employee_id AS employee_id, e.first_name AS e_first_name, e.last_name AS e_last_name, o.order_date AS order_date, o.order_complete AS order_complete, o.to_be_shipped AS to_be_shipped FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) LEFT JOIN Employees e ON o.employee_id = e.employee_id);";
 
     db.pool.query(query1, function (error, rows, fields) {    // Execute the query
@@ -152,6 +171,17 @@ app.get('/orders', function (req, res) {
         res.render('orders', { data: rows });                 // Render the orders.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
+// Show Orders search results
+app.post('/search-orders-form', function (req, res) {
+    let data = req.body;
+    let search_order = parseInt(data.order_number_entered)
+    let query1 = `SELECT * FROM Orders WHERE order_number = ${search_order};`; 
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+
+        res.render('orders', { data: rows });              // Render the customers.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
 
 // Add new order page    
 app.get('/new_order', function (req, res) {

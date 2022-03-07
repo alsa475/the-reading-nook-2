@@ -58,10 +58,13 @@
     <br>
     <label>Search for a customer:</label>
     <br>
-    <label>by First Name</label>
-    <input type="text" placeholder="First Name">
-    <label>by Last Name</label>
-    <input type="text" placeholder="Last Name">
+    <form id='search-customers-form' method='POST' action='/search-customers-form'>
+      <label>by First Name</label>
+      <input type="text" placeholder="First Name" name="first_name_entered" id="first_name_entered">
+      <label>by Last Name</label>
+      <input type="text" placeholder="Last Name" name="last_name_entered" id="last_name_entered">
+      <input type="submit">
+    </form>
   </div>
 
   <br>

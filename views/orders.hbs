@@ -62,8 +62,11 @@
     <br>
     <label>Search for an order:</label>
     <br>
-    <label>by Order Number</label>
-    <input type="number" placeholder="Order Number">
+    <form id='search-orders-form' method='POST' action='/search-orders-form'>
+      <label>by Order Number</label>
+      <input type="number" placeholder="Order Number" name="order_number_entered" id="order_number_entered">
+      <input type="submit">
+    </form>
   </div>
 
   <br>

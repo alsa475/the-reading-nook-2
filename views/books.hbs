@@ -52,10 +52,13 @@
     <br>
     <label>Search for a book:</label>
     <br>
-    <label>by Title</label>
-    <input type="text" placeholder="Title">
-    <label>by Author</label>
-    <input type="text" placeholder="Author">
+    <form id='search-books-form' method='POST' action='/search-books-form'>
+      <label>by Title</label>
+      <input type="text" placeholder="Title" name="title_entered" id="title_entered">
+      <label>by Author</label>
+      <input type="text" placeholder="Author" name="author_entered" id="author_entered">
+      <input type="submit">
+    </form>
   </div>
 
   <br>
