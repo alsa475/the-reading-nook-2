@@ -14,7 +14,7 @@
     <li><a href="./orders">Orders</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
-  
+
   <h1>The Reading Nook Book Inventory</h1>
 
   <table>
@@ -33,22 +33,28 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.book_id}}</td>
-            <td>{{this.title}}</td>
-            <td>{{this.author}}</td>
-            <td>{{this.genre}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.quantity_in_stock}}</td>
-            <td><a href="/edit_book">Edit</a></td>
-            <td>
-              <form id='delete-book-form' method='POST' action='/delete-book-form'>
-                <button class="delete_button" name="book_id_selected" id="book_id_selected" value="{{this.book_id}}">Delete</button>
-              </form>
-            </td>
-        </tr>
-        {{/each}}
+      {{#each data}}
+      <tr>
+        <td>{{this.book_id}}</td>
+        <td>{{this.title}}</td>
+        <td>{{this.author}}</td>
+        <td>{{this.genre}}</td>
+        <td>{{this.price}}</td>
+        <td>{{this.quantity_in_stock}}</td>
+        <td>
+          <form id='update-book-form' method='POST' action='/update-book-form'>
+            <button class="update_button" name="edit_book_id_selected" id="edit_book_id_selected"
+              value="{{this.book_id}}">Edit</button>
+          </form>
+        </td>
+        <td>
+          <form id='delete-book-form' method='POST' action='/delete-book-form'>
+            <button class="delete_button" name="book_id_selected" id="book_id_selected"
+              value="{{this.book_id}}">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 

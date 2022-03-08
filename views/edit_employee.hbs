@@ -19,17 +19,19 @@
     <h1>Under construction!</h1>
 
     <form>
+        {{#each data}}
         <fieldset>
             <label for="first_name">First Name:</label>
-            <input type="text" placeholder="Olivia" />
+            <input type="text" name="first_name" value="{{this.first_name}}" />
 
             <br>
             <label for="last_name">Last Name:</label>
-            <input type="text" placeholder="Martin" />
+            <input type="text" name="last_name" value="{{this.last_name}}" />
 
             <br>
             <button>Submit changes</button>
         </fieldset>
+        {{/each}}
     </form>
 
     <br>

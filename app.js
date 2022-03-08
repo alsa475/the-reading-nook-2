@@ -97,8 +97,14 @@ app.post('/new-customer-form', function (req, res) {
 })
 
 // Edit customer page    
-app.get('/edit_customer', function (req, res) {
-    res.render('edit_customer');
+app.post('/update-customer-form', function (req, res) {
+    let data = req.body;
+    let update_customer = parseInt(data.edit_customer_id_selected)
+
+    let query1 = `SELECT first_name, last_name, email, street_address, city, state, zipcode FROM Customers WHERE customer_id = ${update_customer};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('edit_customer', { data: rows });
+    })
 });
 
 // Delete customer
@@ -169,8 +175,14 @@ app.post('/new-book-form', function (req, res) {
 })
 
 // Edit book page    
-app.get('/edit_book', function (req, res) {
-    res.render('edit_book');
+app.post('/update-book-form', function (req, res) {
+    let data = req.body;
+    let update_book = parseInt(data.edit_book_id_selected)
+
+    let query1 = `SELECT title, author, genre, price, quantity_in_stock FROM Books WHERE book_id = ${update_book};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('edit_book', { data: rows });
+    })
 });
 
 // Delete book
@@ -383,8 +395,14 @@ app.post('/new-employee-form', function (req, res) {
 })
 
 // Edit employee page    
-app.get('/edit_employee', function (req, res) {
-    res.render('edit_employee');
+app.post('/update-employee-form', function (req, res) {
+    let data = req.body;
+    let update_employee = parseInt(data.edit_employee_id_selected)
+
+    let query1 = `SELECT first_name, last_name FROM Employees WHERE employee_id = ${update_employee};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('edit_employee', { data: rows });
+    })
 });
 
 // Delete employee
