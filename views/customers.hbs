@@ -14,7 +14,7 @@
     <li><a href="./orders">Orders</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
-  
+
   <h1>The Reading Nook Customers</h1>
 
   <table>
@@ -35,28 +35,34 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.customer_id}}</td>
-            <td>{{this.first_name}}</td>
-            <td>{{this.last_name}}</td>
-            <td>{{this.email}}</td>
-            <td>{{this.street_address}}</td>
-            <td>{{this.city}}</td>
-            <td>{{this.state}}</td>
-            <td>{{this.zip_code}}</td>
-            <td><a href="/edit_customer">Edit</a></td>
-            <td>
-              <form id='delete-customer-form' method='POST' action='/delete-customer-form'>
-                <button class="delete_button" name="customer_id_selected" id="customer_id_selected" value="{{this.customer_id}}">Delete</button>
-              </form>
-            </td>
-        </tr>
-        {{/each}}
+      {{#each data}}
+      <tr>
+        <td>{{this.customer_id}}</td>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.street_address}}</td>
+        <td>{{this.city}}</td>
+        <td>{{this.state}}</td>
+        <td>{{this.zip_code}}</td>
+        <td>
+          <form id='update-customer-form' method='POST' action='/update-customer-form'>
+            <button class="update_button" name="edit_customer_id_selected" id="edit_customer_id_selected"
+              value="{{this.customer_id}}">Edit</button>
+          </form>
+        </td>
+        <td>
+          <form id='delete-customer-form' method='POST' action='/delete-customer-form'>
+            <button class="delete_button" name="customer_id_selected" id="customer_id_selected"
+              value="{{this.customer_id}}">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 
- 
+
 
   <div>
     <br>

@@ -14,7 +14,7 @@
     <li><a href="./orders">Orders</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
-  
+
   <h1>The Reading Nook Employees</h1>
 
   <table>
@@ -30,19 +30,25 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.employee_id}}</td>
-            <td>{{this.first_name}}</td>
-            <td>{{this.last_name}}</td>
-            <td><a href="/edit_employee">Edit</a></td>
-            <td>
-              <form id='delete-employee-form' method='POST' action='/delete-employee-form'>
-                <button class="delete_button" name="employee_id_selected" id="employee_id_selected" value="{{this.employee_id}}">Delete</button>
-              </form>
-            </td>
-        </tr>
-        {{/each}}
+      {{#each data}}
+      <tr>
+        <td>{{this.employee_id}}</td>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>
+          <form id='update-employee-form' method='POST' action='/update-employee-form'>
+            <button class="update_button" name="edit_employee_id_selected" id="edit_employee_id_selected"
+              value="{{this.employee_id}}">Edit</button>
+          </form>
+        </td>
+        <td>
+          <form id='delete-employee-form' method='POST' action='/delete-employee-form'>
+            <button class="delete_button" name="employee_id_selected" id="employee_id_selected"
+              value="{{this.employee_id}}">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 
