@@ -16,20 +16,19 @@
     </ul>
 
     <h1>Edit Employee</h1>
-    <h1>Under construction!</h1>
 
-    <form>
+    <form id='update-employee-form' method='POST' action='/update-employee-form'>
         {{#each data}}
         <fieldset>
             <label for="first_name">First Name:</label>
-            <input type="text" name="first_name" value="{{this.first_name}}" />
+            <input type="text" value="{{this.first_name}}" name="first_name_update" id="first_name_update" required="required"/>
 
             <br>
             <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name" value="{{this.last_name}}" />
+            <input type="text" value="{{this.last_name}}" name="last_name_update" id="last_name_update" required="required"/>
 
             <br>
-            <button>Submit changes</button>
+            <button value="{{this.employee_id}}" name="employee_id_update" id="employee_id_update">Submit changes</button>
         </fieldset>
         {{/each}}
     </form>

@@ -42,14 +42,14 @@
         <td>{{this.price}}</td>
         <td>{{this.quantity_in_stock}}</td>
         <td>
-          <form id='update-book-form' method='POST' action='/update-book-form'>
-            <button class="update_button" name="edit_book_id_selected" id="edit_book_id_selected"
+          <form id='edit-book-form' method='POST' action='/edit-book-form'>
+            <button class="center_button" name="edit_book_id_selected" id="edit_book_id_selected"
               value="{{this.book_id}}">Edit</button>
           </form>
         </td>
         <td>
           <form id='delete-book-form' method='POST' action='/delete-book-form'>
-            <button class="delete_button" name="book_id_selected" id="book_id_selected"
+            <button class="center_button" name="book_id_selected" id="book_id_selected"
               value="{{this.book_id}}">Delete</button>
           </form>
         </td>

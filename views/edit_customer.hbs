@@ -16,40 +16,39 @@
     </ul>
 
     <h1>Edit Customer</h1>
-    <h1>Under Construction!</h1>
 
-    <form>
+    <form id='update-customer-form' method='POST' action='/update-customer-form'>
         {{#each data}}
         <fieldset>
             <label for="first_name">First Name:</label>
-            <input type="text" name="first_name" value="{{this.first_name}}" />
+            <input type="text" value="{{this.first_name}}" name="first_name_update" id="first_name_update" required="required"/>
 
             <br>
             <label for="last_name">Last Name:</label>
-            <input type="text" name="last_name" value="{{this.last_name}}" />
+            <input type="text" value="{{this.last_name}}" name="last_name_update" id="last_name_update" required="required"/>
 
             <br>
             <label for="email">Email:</label>
-            <input type="text" name="email" value="{{this.email}}" />
+            <input type="text" value="{{this.email}}" name="email_update" id="email_update"/>
 
             <br>
             <label for="address">Address:</label>
-            <input type="text" name="street_address" value="{{this.street_address}}" />
+            <input type="text" value="{{this.street_address}}" name="street_address_update" id="street_address_update"/>
 
             <br>
             <label f or="city">City:</label>
-            <input type="text" name="city" value="{{this.city}}" />
+            <input type="text" value="{{this.city}}" name="city_update" id="city_update"/>
 
             <br>
             <label for="state">State:</label>
-            <input type="text" name="state" value="{{this.state}}" />
+            <input type="text" value="{{this.state}}" name="state_update" id="state_update"/>
 
             <br>
             <label for="zip_code">Zip Code:</label>
-            <input type="text" name="zip_code" value="{{this.zip_code}}" />
+            <input type="text" value="{{this.zip_code}}" name="zip_code_update" id="zip_code_update"/>
 
             <br>
-            <button>Submit changes</button>
+            <button value="{{this.customer_id}}" name="customer_id_update" id="customer_id_update">Submit changes</button>
         </fieldset>
         {{/each}}
     </form>

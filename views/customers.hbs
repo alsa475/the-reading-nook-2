@@ -46,14 +46,14 @@
         <td>{{this.state}}</td>
         <td>{{this.zip_code}}</td>
         <td>
-          <form id='update-customer-form' method='POST' action='/update-customer-form'>
-            <button class="update_button" name="edit_customer_id_selected" id="edit_customer_id_selected"
+          <form id='edit-customer-form' method='POST' action='/edit-customer-form'>
+            <button class="center_button" name="edit_customer_id_selected" id="edit_customer_id_selected"
               value="{{this.customer_id}}">Edit</button>
           </form>
         </td>
         <td>
           <form id='delete-customer-form' method='POST' action='/delete-customer-form'>
-            <button class="delete_button" name="customer_id_selected" id="customer_id_selected"
+            <button class="center_button" name="customer_id_selected" id="customer_id_selected"
               value="{{this.customer_id}}">Delete</button>
           </form>
         </td>

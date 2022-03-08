@@ -15,7 +15,7 @@
     SETUP
 */
 
-PORT = 49534;                            // Set a port number at the top so it's easy to change in the future
+PORT = 49533;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -96,14 +96,29 @@ app.post('/new-customer-form', function (req, res) {
     })
 })
 
-// Edit customer page    
-app.post('/update-customer-form', function (req, res) {
+// Edit customer page   
+// Populate fields for editing 
+app.post('/edit-customer-form', function (req, res) {
     let data = req.body;
     let update_customer = parseInt(data.edit_customer_id_selected)
 
-    let query1 = `SELECT first_name, last_name, email, street_address, city, state, zipcode FROM Customers WHERE customer_id = ${update_customer};`;
+    let query1 = `SELECT customer_id, first_name, last_name, email, street_address, city, state, zip_code FROM Customers WHERE customer_id = ${update_customer};`;
     db.pool.query(query1, function (error, rows, fields) {
         res.render('edit_customer', { data: rows });
+    })
+});
+
+// Update customer info
+app.post('/update-customer-form', function (req, res) {
+    let data = req.body;
+    let update_customer = parseInt(data.customer_id_update)
+    
+    let query1 = `UPDATE Customers SET first_name = '${data['first_name_update']}', last_name = '${data['last_name_update']}', email = '${data['email_update']}', street_address = '${data['street_address_update']}', city = '${data['city_update']}', state = '${data['state_update']}', zip_code = '${data['zip_code_update']}' WHERE customer_id = ${update_customer};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Customers;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('customers', { data: rows });
+        })
     })
 });
 
@@ -174,16 +189,32 @@ app.post('/new-book-form', function (req, res) {
     })
 })
 
-// Edit book page    
-app.post('/update-book-form', function (req, res) {
+// Edit book page  
+// Populate fields for editing  
+app.post('/edit-book-form', function (req, res) {
     let data = req.body;
     let update_book = parseInt(data.edit_book_id_selected)
 
-    let query1 = `SELECT title, author, genre, price, quantity_in_stock FROM Books WHERE book_id = ${update_book};`;
+    let query1 = `SELECT book_id, title, author, genre, price, quantity_in_stock FROM Books WHERE book_id = ${update_book};`;
     db.pool.query(query1, function (error, rows, fields) {
         res.render('edit_book', { data: rows });
     })
 });
+
+// Update book info
+app.post('/update-book-form', function (req, res) {
+    let data = req.body;
+    let update_book = parseInt(data.book_id_update)
+    
+    let query1 = `UPDATE Books SET title = '${data['title_update']}', author = '${data['author_update']}', genre = '${data['genre_update']}', price = '${data['price_update']}', quantity_in_stock = '${data['quantity_in_stock_update']}' WHERE book_id = ${update_book};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Books;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('books', { data: rows });
+        })
+    })
+});
+
 
 // Delete book
 app.post('/delete-book-form', function (req, res) {
@@ -394,16 +425,32 @@ app.post('/new-employee-form', function (req, res) {
     })
 })
 
-// Edit employee page    
-app.post('/update-employee-form', function (req, res) {
+// Edit employee page  
+// Populate fields for editing  
+app.post('/edit-employee-form', function (req, res) {
     let data = req.body;
     let update_employee = parseInt(data.edit_employee_id_selected)
 
-    let query1 = `SELECT first_name, last_name FROM Employees WHERE employee_id = ${update_employee};`;
+    let query1 = `SELECT employee_id, first_name, last_name FROM Employees WHERE employee_id = ${update_employee};`;
     db.pool.query(query1, function (error, rows, fields) {
         res.render('edit_employee', { data: rows });
     })
 });
+
+// Update employee info
+app.post('/update-employee-form', function (req, res) {
+    let data = req.body;
+    let update_employee = parseInt(data.employee_id_update)
+    
+    let query1 = `UPDATE Employees SET first_name = '${data['first_name_update']}', last_name = '${data['last_name_update']}' WHERE employee_id = ${update_employee};`;
+    db.pool.query(query1, function (error, rows, fields) {
+        let query2 = "SELECT * FROM Employees;";
+        db.pool.query(query2, function (error, rows, fields) {
+            res.render('employees', { data: rows });
+        })
+    })
+});
+
 
 // Delete employee
 app.post('/delete-employee-form', function (req, res) {

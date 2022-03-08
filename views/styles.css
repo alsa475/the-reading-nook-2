@@ -83,7 +83,7 @@ input {
     padding: 5px;
 }
 
-.delete_button {
+.center_button {
     text-align: center;
     margin: auto;
     display: flex
