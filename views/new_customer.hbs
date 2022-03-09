@@ -12,6 +12,7 @@
         <li><a href="./customers">Customers</a></li>
         <li><a href="./books">Books</a></li>
         <li><a href="./orders">Orders</a></li>
+        <li><a href="./order_items">Orders Items</a></li>
         <li><a href="./employees">Employees</a></li>
     </ul>
 
@@ -20,35 +21,37 @@
     <form id='new-customer-form' method='POST' action='/new-customer-form'>
         <fieldset>
             <label for="first_name">First Name:</label>
-            <input type="text" placeholder="First name" name="first_name_input" id="first_name_input" required="required"/>
+            <input type="text" placeholder="First name" name="first_name_input" id="first_name_input"
+                required="required" />
 
             <br>
             <label for="last_name">Last Name:</label>
-            <input type="text" placeholder="Last name" name="last_name_input" id="last_name_input" required="required"/>
+            <input type="text" placeholder="Last name" name="last_name_input" id="last_name_input"
+                required="required" />
 
             <br>
             <label for="email">Email:</label>
-            <input type="text" placeholder="Email" name="email_input" id="email_input"/>
+            <input type="text" placeholder="Email" name="email_input" id="email_input" />
 
             <br>
             <label for="address">Address:</label>
-            <input type="text" placeholder="Address" name="street_address_input" id="street_address_input"/>
+            <input type="text" placeholder="Address" name="street_address_input" id="street_address_input" />
 
             <br>
             <label for="city">City:</label>
-            <input type="text" placeholder="City" name="city_input" id="city_input"/>
+            <input type="text" placeholder="City" name="city_input" id="city_input" />
 
             <br>
             <label for="state">State:</label>
-            <input type="text" placeholder="State" name="state_input" id="state_input"/>
+            <input type="text" placeholder="State" name="state_input" id="state_input" />
 
             <br>
             <label for="zip_code">Zip Code:</label>
-            <input type="text" placeholder="Zip code" name="zip_code_input" id="zip_code_input"/>
+            <input type="text" placeholder="Zip code" name="zip_code_input" id="zip_code_input" />
 
             <br>
             <input type="submit">
-            
+
         </fieldset>
     </form>
 

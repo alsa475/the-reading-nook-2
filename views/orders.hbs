@@ -12,6 +12,7 @@
     <li><a href="./customers">Customers</a></li>
     <li><a href="./books">Books</a></li>
     <li><a href="./orders">Orders</a></li>
+    <li><a href="./order_items">Orders Items</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
 
@@ -54,7 +55,8 @@
         <td><a href="/edit_order">Edit</a></td>
         <td>
           <form id='delete-order-form' method='POST' action='/delete-order-form'>
-            <button class="center_button" name="order_number_selected" id="order_number_selected" value="{{this.order_number}}">Delete</button>
+            <button class="center_button" name="order_number_selected" id="order_number_selected"
+              value="{{this.order_number}}">Delete</button>
           </form>
         </td>
       </tr>
