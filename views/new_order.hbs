@@ -12,6 +12,7 @@
         <li><a href="./customers">Customers</a></li>
         <li><a href="./books">Books</a></li>
         <li><a href="./orders">Orders</a></li>
+        <li><a href="./order_items">Orders Items</a></li>
         <li><a href="./employees">Employees</a></li>
     </ul>
 
@@ -28,7 +29,7 @@
             </select>
 
             <label for="order_date">Order Date:</label>
-            <input type="date" placeholder="Order date" name="order_date_input" id="order_date_input"/>
+            <input type="date" placeholder="Order date" name="order_date_input" id="order_date_input" />
 
             <label for="employee_id_inpt">Employee:</label>
             <select name="employee_id_input" id="employee_id_input">
@@ -41,11 +42,11 @@
             <p>Will this order be shipped to the customer?</p>
             <input type="radio" id="to_be_shipped_input" name="to_be_shipped_input" value="1" required="required">
             <label class="radio" for="to_be_shipped_input">Yes</label>
-            
+
 
             <input type="radio" id="to_be_shipped_input" name="to_be_shipped_input" value="0">
             <label class="radio" for="to_be_shipped_input">No</label>
-            
+
 
             <p>Is this order complete?</p>
             <input type="radio" id="order_complete_input" name="order_complete_input" value="1" required="required">
@@ -67,14 +68,14 @@
             </select>
 
             <label for="quantity">Quantity:</label>
-            <input type="number" placeholder="Quantity" name="quantity_input" id="quantity_input" required="required"/>
+            <input type="number" placeholder="Quantity" name="quantity_input" id="quantity_input" required="required" />
 
             <select name="order_item_complete_input" id="order_item_complete_input">
                 <option value="FALSE" selected>Not Complete</option>
                 <option value="TRUE">Complete</option>
             </select>
-            
-            
+
+
             <br>
             <br>
             <button>Add order</button>

@@ -12,9 +12,10 @@
     <li><a href="./customers">Customers</a></li>
     <li><a href="./books">Books</a></li>
     <li><a href="./orders">Orders</a></li>
+    <li><a href="./order_items">Orders Items</a></li>
     <li><a href="./employees">Employees</a></li>
   </ul>
-  
+
   <h1>The Reading Nook Orders</h1>
 
   <table>
@@ -32,22 +33,23 @@
     </thead>
 
     <tbody>
-        {{#each data}}
-        <tr>
-            <td>{{this.order_number}}</td>
-            <td>{{this.book_id}}</td>
-            <td>{{this.title}}</td>
-            <td>{{this.quantity}}</td>
-            <td>{{this.order_item_complete}}</td>
-            
-            <td><a href="/edit_order_item">Edit</a></td>
-            <td>
-              <form id='delete-order-item-form' method='POST' action='/delete-order-item-form'>
-                <button class="center_button" name="order_item_selected" id="order_item_selected" value="{{this.order_number}}, {{this.book_id}}">Delete</button>
-              </form>
-            </td>
-        </tr>
-        {{/each}}
+      {{#each data}}
+      <tr>
+        <td>{{this.order_number}}</td>
+        <td>{{this.book_id}}</td>
+        <td>{{this.title}}</td>
+        <td>{{this.quantity}}</td>
+        <td>{{this.order_item_complete}}</td>
+
+        <td><a href="/edit_order_item">Edit</a></td>
+        <td>
+          <form id='delete-order-item-form' method='POST' action='/delete-order-item-form'>
+            <button class="center_button" name="order_item_selected" id="order_item_selected"
+              value="{{this.order_number}}, {{this.book_id}}">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {{/each}}
     </tbody>
   </table>
 
