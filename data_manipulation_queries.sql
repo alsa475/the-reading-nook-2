@@ -52,6 +52,15 @@ SELECT o.order_number AS order_number,
     LEFT JOIN Employees e ON o.employee_id = e.employee_id) 
     WHERE o.order_number = ${:order_number_entered};
 
+-- Order items table search
+SELECT oi.order_number AS order_number, 
+    oi.book_id AS book_id, 
+    b.title AS title, 
+    oi.quantity AS quantity, 
+    oi.order_item_complete AS order_item_complete 
+    FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) 
+    WHERE order_number = ${:order_number_entered};
+
 -- Queries for inserting a new row in a table
 -- : character used to denote the variables that will be entered by the user 
 INSERT INTO Customers (first_name, last_name, email, street_address, city, state, zip_code) VALUES

@@ -112,6 +112,8 @@ INSERT INTO `Customers` (first_name, last_name, email) VALUES ("James", "Cason",
 
 INSERT INTO `Customers` (first_name, last_name) VALUES ("Diana", "Roderick");
 
+INSERT INTO `Customers` (first_name, last_name) VALUES ("Cameron", "Reader");
+
 
 -- Orders
 INSERT INTO `Orders` (customer_id, order_date, order_complete, to_be_shipped) VALUES (1, "2022-02-22", FALSE, TRUE);
@@ -120,6 +122,7 @@ INSERT INTO `Orders` (customer_id, order_date, order_complete, to_be_shipped) VA
 
 INSERT INTO `Orders` (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES (4, 1, "2021-12-15", TRUE, FALSE);
 
+INSERT INTO `Orders` (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES (5, 4, "2021-12-10", TRUE, FALSE);
 
 -- Order_items
 INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (1, 1, 1, FALSE);
