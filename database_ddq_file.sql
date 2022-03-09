@@ -48,7 +48,7 @@ CREATE TABLE `Orders` (
 `order_complete` boolean NOT NULL,
 `to_be_shipped` boolean NOT NULL,
 CONSTRAINT `Orders_fk_1` FOREIGN KEY (`customer_id`) REFERENCES `Customers` (`customer_id`) ON DELETE CASCADE,
-CONSTRAINT `Orders_fk_2` FOREIGN KEY (`employee_id`) REFERENCES `Employees` (`employee_id`),
+CONSTRAINT `Orders_fk_2` FOREIGN KEY (`employee_id`) REFERENCES `Employees` (`employee_id`) ON DELETE SET NULL,
 PRIMARY KEY (`order_number`)
 ) ENGINE=InnoDB;
 
@@ -89,6 +89,9 @@ INSERT INTO `Books` (title, author, genre, price, quantity_in_stock) VALUES ("Th
 
 INSERT INTO `Books` (title, author, genre, price, quantity_in_stock) VALUES ("Relational Database Design and Implementation: Clearly Explained", "Jan Harrington", "Non-fiction", 25.50, 3);
 
+INSERT INTO `Books` (title, author, genre, price, quantity_in_stock) VALUES ("Beloved", "Toni Morrison", "American Literature", 14.99, 6);
+
+INSERT INTO `Books` (title, author, genre, price, quantity_in_stock) VALUES ("The Count of Monte Cristo", "Alexandre Dumas", "Historical novel", 11.99, 4);
 
 -- Employees
 INSERT INTO `Employees` (first_name, last_name) VALUES ("Mary", "Randell");
@@ -114,6 +117,9 @@ INSERT INTO `Customers` (first_name, last_name) VALUES ("Diana", "Roderick");
 
 INSERT INTO `Customers` (first_name, last_name) VALUES ("Cameron", "Reader");
 
+INSERT INTO `Customers` (first_name, last_name, email, street_address, city, state, zip_code) VALUES ("Juan", "Tello", "tello@email.com", "123 Main St.", "Atlanta", "GA", "31099" );
+
+INSERT INTO `Customers` (first_name, last_name, email) VALUES ("Jun", "Kim", "junkim@email.com");
 
 -- Orders
 INSERT INTO `Orders` (customer_id, order_date, order_complete, to_be_shipped) VALUES (1, "2022-02-22", FALSE, TRUE);
@@ -123,6 +129,11 @@ INSERT INTO `Orders` (customer_id, order_date, order_complete, to_be_shipped) VA
 INSERT INTO `Orders` (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES (4, 1, "2021-12-15", TRUE, FALSE);
 
 INSERT INTO `Orders` (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES (5, 4, "2021-12-10", TRUE, FALSE);
+
+INSERT INTO `Orders` (customer_id, employee_id, order_date, order_complete, to_be_shipped) VALUES (7, 3, "2022-03-09", FALSE, TRUE);
+
+INSERT INTO `Orders` (customer_id, order_date, order_complete, to_be_shipped) VALUES (6, "2022-01-15", FALSE, TRUE);
+
 
 -- Order_items
 INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (1, 1, 1, FALSE);
@@ -134,3 +145,13 @@ INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete)
 INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (2, 4, 3, TRUE);
 
 INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (3, 9, 2, TRUE);
+
+INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (4, 6, 1, TRUE);
+
+INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (4, 7, 1, TRUE);
+
+INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (5, 13, 1, FALSE);
+
+INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (6, 14, 1, FALSE);
+
+INSERT INTO `Order_items` (order_number, book_id, quantity, order_item_complete) VALUES (6, 8, 1, FALSE);
