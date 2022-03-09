@@ -358,6 +358,16 @@ app.get('/order_items', function (req, res) {
     })                                                      // an object where 'data' is equal to the 'rows' we
 });
 
+// Show order items search results
+app.post('/search-order-items-form', function (req, res) {
+    let data = req.body;
+    let query1 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = '${data['order_number_entered']}';`;
+    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+
+        res.render('order_items', { data: rows });              // Render the customers.hbs file, and also send the renderer
+    })                                                      // an object where 'data' is equal to the 'rows' we
+});
+
 // Edit order item page    
 app.get('/edit_order_item', function (req, res) {
     res.render('edit_order_item');

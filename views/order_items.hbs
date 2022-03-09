@@ -52,7 +52,16 @@
       {{/each}}
     </tbody>
   </table>
-
+  <div>
+    <br>
+    <label>Search for Order Items:</label>
+    <br>
+    <form id='search-order-items-form' method='POST' action='/search-order-items-form'>
+      <label>by Order Number</label>
+      <input type="number" placeholder="Order Number" name="order_number_entered" id="order_number_entered">
+      <input type="submit">
+    </form>
+  </div>
   <br>
   <a href="/orders">Return to list of orders</a>
 
