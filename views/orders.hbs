@@ -51,7 +51,12 @@
         <td>{{this.employee_id}}</td>
         <td>{{this.e_first_name}}</td>
         <td>{{this.e_last_name}}</td>
-        <td><a href="/order_items">View Items</a></td>
+        <td>
+          <form id='search-order-items-form' method='POST' action='/search-order-items-form'>
+            <button class="center_button" name="order_number_entered" id="order_number_entered"
+              value="{{this.order_number}}">View Items</button>
+          </form>
+        </td>
         <td><a href="/edit_order">Edit</a></td>
         <td>
           <form id='delete-order-form' method='POST' action='/delete-order-form'>
