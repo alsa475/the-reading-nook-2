@@ -15,7 +15,7 @@
     SETUP
 */
 
-PORT = 49533;                            // Set a port number at the top so it's easy to change in the future
+PORT = 49535;                            // Set a port number at the top so it's easy to change in the future
 var express = require('express');               // We are using the express library for the web server
 var app = express();                        // We need to instantiate an express object to interact with the server in our code
 app.use(express.json())
@@ -58,10 +58,10 @@ app.get('/customers', function (req, res) {
 app.post('/search-customers-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT * FROM Customers WHERE first_name = '${data['first_name_entered']}' OR last_name = '${data['last_name_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    db.pool.query(query1, function (error, rows, fields) {    
 
-        res.render('customers', { data: rows });              // Render the customers.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        res.render('customers', { data: rows });              
+    })                                                      
 });
 
 // Add new customer page    
@@ -151,10 +151,10 @@ app.get('/books', function (req, res) {
 app.post('/search-books-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT * FROM Books WHERE title = '${data['title_entered']}' OR author = '${data['author_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    db.pool.query(query1, function (error, rows, fields) {    
 
-        res.render('books', { data: rows });              // Render the customers.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        res.render('books', { data: rows });              
+    })                                                      
 });
 
 // Add new book page    
@@ -246,10 +246,10 @@ app.post('/search-orders-form', function (req, res) {
     let data = req.body;
     let search_order = parseInt(data.order_number_entered)
     let query1 = `SELECT o.order_number AS order_number, o.customer_id AS customer_id, c.first_name AS c_first_name, c.last_name AS c_last_name, o.employee_id AS employee_id, e.first_name AS e_first_name, e.last_name AS e_last_name, o.order_date AS order_date, o.order_complete AS order_complete, o.to_be_shipped AS to_be_shipped FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) LEFT JOIN Employees e ON o.employee_id = e.employee_id) WHERE o.order_number = ${search_order};`;
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    db.pool.query(query1, function (error, rows, fields) {    
 
-        res.render('orders', { data: rows });              // Render the customers.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        res.render('orders', { data: rows });              
+    })                                                     
 });
 
 // Add new order page    
@@ -354,18 +354,63 @@ app.get('/order_items', function (req, res) {
 
     db.pool.query(query1, function (error, rows, fields) {    // Execute the query
 
-        res.render('order_items', { data: rows });            // Render the employees.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        res.render('order_items', { data: rows });            // Render the order_items.hbs file, and also send the renderer
+    })                                                        // an object where 'data' is equal to the 'rows' we
 });
 
 // Show order items search results
 app.post('/search-order-items-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = '${data['order_number_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    // Execute the query
+    db.pool.query(query1, function (error, rows, fields) {    
 
-        res.render('order_items', { data: rows });              // Render the customers.hbs file, and also send the renderer
-    })                                                      // an object where 'data' is equal to the 'rows' we
+        res.render('order_items', { data: rows });              
+    })                                                      
+});
+
+// Add items to an order
+app.post('/add-order-items-form', function (req, res) {
+    let data = req.body;
+    let order_number = parseInt(data['order_number_selected']);
+
+    let query1 = `SELECT * FROM Books;`
+    db.pool.query(query1, function (error, rows, fields) {    
+        let select_books = rows;
+        res.render('add_order_items', { select_books: select_books, order_number: order_number });
+    })                                                     
+});
+
+// Update order items
+app.post('/update-order-items-form', function (req, res) {
+    let data = req.body;
+    let update_order = parseInt(data.order_number_update)
+    let update_book = parseInt(data.book_id_input)
+    let update_book_2 = parseInt(data.book_id_input_2)
+    let update_quantity_2 = parseInt(data.quantity_input_2)
+    let update_book_3 = parseInt(data.book_id_input_3)
+    let update_quantity_3 = parseInt(data.quantity_input_3)
+    
+    
+    let query1 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book}, '${data['quantity_input']}', ${data['order_item_complete_input']})`;
+    let query2 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book_2}, '${data['quantity_input_2']}', ${data['order_item_complete_input_2']})`;
+    let query3 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book_3}, '${data['quantity_input_3']}', ${data['order_item_complete_input_3']})`;
+
+
+    db.pool.query(query1, function (error, rows, fields) {
+        if (!isNaN(update_book_2) && !isNaN(update_quantity_2)){
+            db.pool.query(query2, function (error, rows, fields){
+                if (!isNaN(update_book_3) && !isNaN(update_quantity_3)){
+                    db.pool.query(query3, function (error, rows, fields){
+                    })  
+                }
+            })
+        }
+        let query4 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = '${data['order_number_update']}';`;
+        db.pool.query(query4, function (error, rows, fields) {    
+    
+            res.render('order_items', { data: rows });            
+        })                                         
+    })
 });
 
 // Edit order item page    
