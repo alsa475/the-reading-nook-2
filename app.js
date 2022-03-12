@@ -58,10 +58,10 @@ app.get('/customers', function (req, res) {
 app.post('/search-customers-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT * FROM Customers WHERE first_name = '${data['first_name_entered']}' OR last_name = '${data['last_name_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    
+    db.pool.query(query1, function (error, rows, fields) {
 
-        res.render('customers', { data: rows });              
-    })                                                      
+        res.render('customers', { data: rows });
+    })
 });
 
 // Add new customer page    
@@ -151,10 +151,10 @@ app.get('/books', function (req, res) {
 app.post('/search-books-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT * FROM Books WHERE title = '${data['title_entered']}' OR author = '${data['author_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    
+    db.pool.query(query1, function (error, rows, fields) {
 
-        res.render('books', { data: rows });              
-    })                                                      
+        res.render('books', { data: rows });
+    })
 });
 
 // Add new book page    
@@ -246,10 +246,10 @@ app.post('/search-orders-form', function (req, res) {
     let data = req.body;
     let search_order = parseInt(data.order_number_entered)
     let query1 = `SELECT o.order_number AS order_number, o.customer_id AS customer_id, c.first_name AS c_first_name, c.last_name AS c_last_name, o.employee_id AS employee_id, e.first_name AS e_first_name, e.last_name AS e_last_name, o.order_date AS order_date, o.order_complete AS order_complete, o.to_be_shipped AS to_be_shipped FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) LEFT JOIN Employees e ON o.employee_id = e.employee_id) WHERE o.order_number = ${search_order};`;
-    db.pool.query(query1, function (error, rows, fields) {    
+    db.pool.query(query1, function (error, rows, fields) {
 
-        res.render('orders', { data: rows });              
-    })                                                     
+        res.render('orders', { data: rows });
+    })
 });
 
 // Add new order page    
@@ -362,10 +362,10 @@ app.get('/order_items', function (req, res) {
 app.post('/search-order-items-form', function (req, res) {
     let data = req.body;
     let query1 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = '${data['order_number_entered']}';`;
-    db.pool.query(query1, function (error, rows, fields) {    
+    db.pool.query(query1, function (error, rows, fields) {
 
-        res.render('order_items', { data: rows });              
-    })                                                      
+        res.render('order_items', { data: rows });
+    })
 });
 
 // Add items to an order
@@ -374,10 +374,10 @@ app.post('/add-order-items-form', function (req, res) {
     let order_number = parseInt(data['order_number_selected']);
 
     let query1 = `SELECT * FROM Books;`
-    db.pool.query(query1, function (error, rows, fields) {    
+    db.pool.query(query1, function (error, rows, fields) {
         let select_books = rows;
         res.render('add_order_items', { select_books: select_books, order_number: order_number });
-    })                                                     
+    })
 });
 
 // Update order items
@@ -389,27 +389,27 @@ app.post('/update-order-items-form', function (req, res) {
     let update_quantity_2 = parseInt(data.quantity_input_2)
     let update_book_3 = parseInt(data.book_id_input_3)
     let update_quantity_3 = parseInt(data.quantity_input_3)
-    
-    
+
+
     let query1 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book}, '${data['quantity_input']}', ${data['order_item_complete_input']})`;
     let query2 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book_2}, '${data['quantity_input_2']}', ${data['order_item_complete_input_2']})`;
     let query3 = `INSERT INTO Order_items (order_number, book_id, quantity, order_item_complete) VALUES (${update_order}, ${update_book_3}, '${data['quantity_input_3']}', ${data['order_item_complete_input_3']})`;
 
 
     db.pool.query(query1, function (error, rows, fields) {
-        if (!isNaN(update_book_2) && !isNaN(update_quantity_2)){
-            db.pool.query(query2, function (error, rows, fields){
-                if (!isNaN(update_book_3) && !isNaN(update_quantity_3)){
-                    db.pool.query(query3, function (error, rows, fields){
-                    })  
+        if (!isNaN(update_book_2) && !isNaN(update_quantity_2)) {
+            db.pool.query(query2, function (error, rows, fields) {
+                if (!isNaN(update_book_3) && !isNaN(update_quantity_3)) {
+                    db.pool.query(query3, function (error, rows, fields) {
+                    })
                 }
             })
         }
         let query4 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = '${data['order_number_update']}';`;
-        db.pool.query(query4, function (error, rows, fields) {    
-    
-            res.render('order_items', { data: rows });            
-        })                                         
+        db.pool.query(query4, function (error, rows, fields) {
+
+            res.render('order_items', { data: rows });
+        })
     })
 });
 
@@ -428,11 +428,22 @@ app.post('/delete-order-item-form', function (req, res) {
 
     let query1 = `DELETE FROM Order_items WHERE order_number = ${order_number_selected} AND book_id = ${book_id_selected};`;
     db.pool.query(query1, function (error, rows, fields) {
-        let query2 = "SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id); ";
-
-        db.pool.query(query2, function (error, rows, fields) {
-
-            res.render('order_items', { data: rows });
+        let query3 = `SELECT * FROM Order_items WHERE order_number = ${order_number_selected};`;
+        db.pool.query(query3, function (error, rows, fields) {
+            if (rows.length == 0) {
+                let query4 = `DELETE FROM Orders WHERE order_number = ${order_number_selected};`;
+                db.pool.query(query4, function (error, rows, fields) {
+                    let query5 = "SELECT o.order_number AS order_number, o.customer_id AS customer_id, c.first_name AS c_first_name, c.last_name AS c_last_name, o.employee_id AS employee_id, e.first_name AS e_first_name, e.last_name AS e_last_name, o.order_date AS order_date, o.order_complete AS order_complete, o.to_be_shipped AS to_be_shipped FROM ((Orders o INNER JOIN Customers c ON o.customer_id = c.customer_id) LEFT JOIN Employees e ON o.employee_id = e.employee_id);";
+                    db.pool.query(query5, function (error, rows, fields) {
+                        res.render('orders', { data: rows });
+                    })
+                })
+            } else {
+                let query2 = `SELECT oi.order_number AS order_number, oi.book_id AS book_id, b.title AS title, oi.quantity AS quantity, oi.order_item_complete AS order_item_complete FROM (Order_items oi LEFT JOIN Books b ON oi.book_id = b.book_id) WHERE order_number = ${order_number_selected}; `;
+                db.pool.query(query2, function (error, rows, fields) {
+                    res.render('order_items', { data: rows });
+                })
+            }
         })
     })
 });
