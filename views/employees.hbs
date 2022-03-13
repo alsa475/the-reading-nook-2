@@ -17,6 +17,27 @@
   </ul>
 
   <h1>The Reading Nook Employees</h1>
+  <div>
+    <br>
+    <br>
+    <form id='search-employees-form' method='POST' action='/search-employees-form' class="search-form">
+      <label class="search-header">Search for an employee:</label>
+      <br>
+      <label>by First Name</label>
+      <input type="text" placeholder="First Name" name="first_name_entered" id="first_name_entered"
+        class="search-field">
+      <br>
+      <label>by Last Name</label>
+      <input type="text" placeholder="Last Name" name="last_name_entered" id="last_name_entered" class="search-field">
+      <br>
+      <input type="submit" class="search-button">
+    </form>
+    <br>
+    <a href="/new_employee">Add a new employee</a>
+
+    <br>
+    <a href="/">Return to the Home Page</a>
+  </div>
 
   <table>
     <caption>Employees</caption>
@@ -53,11 +74,7 @@
     </tbody>
   </table>
 
-  <br>
-  <a href="/new_employee">Add a new employee</a>
 
-  <br>
-  <a href="/">Return to the Home Page</a>
 </body>
 
 </html>
