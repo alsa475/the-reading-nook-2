@@ -139,7 +139,7 @@ app.post('/delete-customer-form', function (req, res) {
 /* Books */
 // Show all books   
 app.get('/books', function (req, res) {
-    let query1 = "SELECT * FROM Books;";                    // Define our query
+    let query1 = "SELECT * FROM Books ORDER BY author;";                    // Define our query
 
     db.pool.query(query1, function (error, rows, fields) {    // Execute the query
 
@@ -458,6 +458,16 @@ app.get('/employees', function (req, res) {
         res.render('employees', { data: rows });              // Render the employees.hbs file, and also send the renderer
     })                                                      // an object where 'data' is equal to the 'rows' we
 });                                                         // received back from the query
+
+// Show employees search results
+app.post('/search-employees-form', function (req, res) {
+    let data = req.body;
+    let query1 = `SELECT * FROM Employees WHERE first_name = '${data['first_name_entered']}' OR last_name = '${data['last_name_entered']}';`;
+    db.pool.query(query1, function (error, rows, fields) {
+
+        res.render('employees', { data: rows });
+    })
+});
 
 // Add new employee page    
 app.get('/new_employee', function (req, res) {

@@ -17,6 +17,26 @@
   </ul>
 
   <h1>The Reading Nook Orders</h1>
+  <div>
+    <br>
+    <br>
+
+    <form id='search-orders-form' method='POST' action='/search-orders-form' class="search-form">
+      <label class="search-header">Search for an order:</label>
+      <br>
+      <label>by Order Number</label>
+      <input type="number" placeholder="Order Number" name="order_number_entered" id="order_number_entered"
+        class="search-field">
+      <br>
+      <input type="submit" class="search-button">
+    </form>
+  </div>
+
+  <br>
+  <a href="/new_order">Add a new order</a>
+
+  <br>
+  <a href="/">Return to the Home Page</a>
 
   <table>
     <caption>Orders</caption>
@@ -70,22 +90,7 @@
     </tbody>
   </table>
 
-  <div>
-    <br>
-    <label>Search for an order:</label>
-    <br>
-    <form id='search-orders-form' method='POST' action='/search-orders-form'>
-      <label>by Order Number</label>
-      <input type="number" placeholder="Order Number" name="order_number_entered" id="order_number_entered">
-      <input type="submit">
-    </form>
-  </div>
 
-  <br>
-  <a href="/new_order">Add a new order</a>
-
-  <br>
-  <a href="/">Return to the Home Page</a>
 </body>
 
 </html>

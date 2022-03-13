@@ -86,8 +86,34 @@ input {
 .center_button {
     text-align: center;
     margin: auto;
-    display: flex
+    display: flex;
 }  
+
+.search-form{
+    text-align: center;
+    margin-right: 150px;
+}
+
+.search-field{
+    align-self: center;
+    width: 300px;
+} 
+
+.search-header{
+    clear: left;
+    width: 160px;
+    margin-left:145px;
+    text-align: center;
+}
+
+.search-button{
+    align-self:center;
+    margin-left: 150px;
+}
+
+.add-edit-field{
+    width: 800px;
+}
 
 button {
     color: darkslateblue;
