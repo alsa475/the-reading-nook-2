@@ -1,11 +1,11 @@
 -- Dana Yarges
 -- Amy Salley
 -- CS340
--- Project Step 4: This file contains the Data Manipulation Queries for the database.
+-- This file contains the Data Manipulation Queries for the database.
 
 -- Queries for displaying a complete table
 SELECT * FROM Customers;
-SELECT * FROM Books;
+SELECT * FROM Books ORDER BY author;
 SELECT * FROM Employees;
 SELECT * FROM Orders;
 SELECT * FROM Order_items;
@@ -140,4 +140,11 @@ DELETE FROM Customers WHERE customer_id = :customer_id_selected;
 DELETE FROM Books WHERE book_id = :book_id_selected;
 DELETE FROM Employees WHERE employee_id = :employee_id_selected;
 DELETE FROM Orders WHERE order_number = :order_number_selected;
+
+-- Delete from the Order items table (3 queries/lines below). Deleting the last Order item of an Order will also delete the Order
+-- 1) Delete the Order item
 DELETE FROM Order_items WHERE order_number = :order_number_selected AND book_id = :book_id_selected;
+-- 2) Filter remaining order_items in that order
+SELECT * FROM Order_items WHERE order_number = :order_number_selected;
+-- 3) If no order items remain for that order, delete the order from the Orders table
+DELETE FROM Orders WHERE order_number = :order_number_selected;
